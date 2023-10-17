@@ -1,0 +1,183 @@
+:root {
+  --primary-color: #945ad1;
+  --todo-status-color: #59b4d1;
+  --doing-status-color: #d0935a;
+  --done-status-color: #59d090;
+  --black-color: #171717;
+  --white-color: #f9f7fa;
+  --light-blue-color: #e1e8ed;
+  --light-shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background-color: var(--light-blue-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: var(--black-color);
+}
+
+body * {
+  font-family: "Fira Mono", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Merriweather Sans", sans-serif;
+}
+
+.header {
+  padding: 12px 8px;
+  background-color: var(--white-color);
+  box-shadow: 0px 2px 4px var(--light-shadow-color);
+}
+
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header__title {
+  color: var(--primary-color);
+}
+
+.kanban {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  flex: 1;
+  background-image: url("../assets/home.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  column-gap: 12px;
+  overflow-x: auto;
+  padding: 40px 12px;
+}
+
+.kanban__column {
+  padding: 16px 12px;
+  border-radius: 4px;
+  flex-basis: 280px;
+  flex-shrink: 0;
+  align-self: baseline;
+  box-shadow: 3px 3px 5px var(--shadow-color);
+}
+
+.kanban__column--todo {
+  background-color: var(--todo-status-color);
+}
+
+.kanban__column--doing {
+  background-color: var(--doing-status-color);
+}
+
+.kanban__column--done {
+  background-color: var(--done-status-color);
+}
+
+.kanban__title {
+  color: var(--white-color);
+}
+
+.kanban__item {
+  background-color: var(--white-color);
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.kanban__content {
+  flex-grow: 1;
+  cursor: pointer;
+  outline: 0;
+}
+
+.kanban__delete {
+  display: flex;
+  justify-content: end;
+  margin-top: 8px;
+}
+
+.button {
+  font-size: 16px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.4s;
+}
+
+.button--delete {
+  width: 36px;
+  height: 36px;
+  background-color: var(--light-blue-color);
+  border-radius: 50%;
+}
+
+.button--delete:hover {
+  background-color: var(--shadow-color);
+}
+
+.button--add {
+  gap: 4px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 100%;
+  justify-content: start;
+  font-weight: 700;
+  margin-top: 8px;
+  background-color: var(--light-shadow-color);
+  color: var(--white-color);
+}
+
+.button--add .md {
+  font-size: 28px;
+}
+
+.button--add:hover {
+  background-color: var(--shadow-color);
+}
+
+.footer {
+  padding: 12px 8px;
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+
+.footer__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer__text {
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer__text a {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.footer__text a:hover {
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+  .kanban {
+    background-size: contain;
+    background-position: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .footer__text {
+    text-align: end;
+  }
+}

@@ -1,12 +1,130 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;700&family=Merriweather+Sans:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+
     <title>Kanboo List</title>
   </head>
   <body>
-    <h1>Kanboo List</h1>
+    <header class="header">
+      <div class="header__container">
+        <h1 class="header__title">Kanboo List</h1>
+      </div>
+    </header>
+
+    <main class="kanban">
+      <section class="kanban__column kanban__column--todo">
+        <h3 class="kanban__title">🗒️ A Fazer</h3>
+
+        <ul class="kanban__list">
+          <li class="kanban__item">
+            <p contenteditable class="kanban__content">Limpar a casa</p>
+            <div class="kanban__delete">
+              <button class="button button--delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+        </ul>
+
+        <button class="button button--add">
+          <ion-icon name="add-outline"></ion-icon>
+          <span>Adicionar</span>
+        </button>
+      </section>
+
+      <section class="kanban__column kanban__column--doing">
+        <h3 class="kanban__title">💻 Em Andamento</h3>
+
+        <ul class="kanban__list">
+          <li class="kanban__item">
+            <p contenteditable class="kanban__content">Limpar a casa</p>
+            <div class="kanban__delete">
+              <button class="button button--delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+          <div class="kanban__dropzone"></div>
+
+          <li class="kanban__item">
+            <p contenteditable class="kanban__content">Limpar a casa</p>
+            <div class="kanban__delete">
+              <button class="button button--delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+          <div class="kanban__dropzone"></div>
+        </ul>
+
+        <button class="button button--add">
+          <ion-icon name="add-outline"></ion-icon>
+          <span>Adicionar</span>
+        </button>
+      </section>
+
+      <section class="kanban__column kanban__column--done">
+        <h3 class="kanban__title">🚀 Concluído</h3>
+
+        <ul class="kanban__list">
+          <li class="kanban__item">
+            <p contenteditable class="kanban__content">Limpar a casa</p>
+            <div class="kanban__delete">
+              <button class="button button--delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+          <div class="kanban__dropzone"></div>
+
+          <li class="kanban__item">
+            <p contenteditable class="kanban__content">Limpar a casa</p>
+            <div class="kanban__delete">
+              <button class="button button--delete">
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+          </li>
+          <div class="kanban__dropzone"></div>
+        </ul>
+
+        <button class="button button--add">
+          <ion-icon name="add-outline"></ion-icon>
+          <span> Adicionar </span>
+        </button>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <p class="footer__text">
+          Feito por
+          <a href="https://github.com/kenmarcos" target="_blank"
+            >Marcos K. Kuribayashi</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
   </body>
 </html>

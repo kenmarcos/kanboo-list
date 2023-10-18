@@ -1,7 +1,10 @@
 import KanbanAPI from "../api/KanbanAPI.js";
+import DropZone from "./DropZone.js";
 
 export default class Task {
   constructor(id, content) {
+    const bottomDropZone = DropZone.createDropZone();
+
     this.elements = {};
     this.elements.root = Task.createRoot();
     this.elements.content =
@@ -13,6 +16,7 @@ export default class Task {
     this.elements.content.textContent = content;
 
     this.content = content;
+    this.elements.root.appendChild(bottomDropZone);
 
     const onBlur = () => {
       const newContent = this.elements.content.textContent.trim();
@@ -42,6 +46,14 @@ export default class Task {
         this.elements.root.parentElement.removeChild(this.elements.root);
       }
     });
+
+    this.elements.root.addEventListener("dragstart", (event) => {
+      event.dataTransfer.setData("text/plain", id);
+    });
+
+    this.elements.root.addEventListener("drop", (event) => {
+      event.preventDefault();
+    });
   }
 
   static createRoot() {
@@ -50,11 +62,13 @@ export default class Task {
 
     return range.createContextualFragment(`
       <li class="kanban__item" draggable="true">
-        <p contenteditable class="kanban__content"></p>
-        <div class="kanban__delete">
-          <button class="button button--delete">
-            <ion-icon name="trash-outline"></ion-icon>
-          </button>
+        <div class="kanban__task">
+          <p contenteditable class="kanban__content"></p>
+          <div class="kanban__delete">
+           <button class="button button--delete">
+             <ion-icon name="trash-outline"></ion-icon>
+           </button>
+          </div>
         </div>
       </li>
     `).children[0];

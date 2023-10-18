@@ -85,11 +85,20 @@ h6 {
   color: var(--white-color);
 }
 
-.kanban__item {
+.kanban__task {
   background-color: var(--white-color);
   border-radius: 4px;
   padding: 16px;
-  margin-top: 12px;
+}
+
+.kanban__dropzone {
+  height: 12px;
+  transition: background 0.15s, height 0.15s;
+}
+
+.kanban__dropzone--active {
+  height: 24px;
+  background: rgba(0, 0, 0, 0.25);
 }
 
 .kanban__content {
@@ -131,7 +140,6 @@ h6 {
   width: 100%;
   justify-content: start;
   font-weight: 700;
-  margin-top: 8px;
   background-color: var(--light-shadow-color);
   color: var(--white-color);
 }

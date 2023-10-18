@@ -1,8 +1,11 @@
 import KanbanAPI from "../api/KanbanAPI.js";
+import DropZone from "./DropZone.js";
 import Task from "./Task.js";
 
 export default class Column {
   constructor({ id, title, name }) {
+    const topDropZone = DropZone.createDropZone();
+
     this.elements = {};
     this.elements.root = Column.createRoot();
     this.elements.title = this.elements.root.querySelector(".kanban__title");
@@ -12,6 +15,7 @@ export default class Column {
     this.elements.root.dataset.id = id;
     this.elements.root.classList.add(`kanban__column--${name}`);
     this.elements.title.textContent = title;
+    this.elements.tasks.appendChild(topDropZone);
 
     this.elements.taskAddBtn.addEventListener("click", () => {
       // TODO: adicionar uma nova task

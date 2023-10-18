@@ -3,7 +3,7 @@
   --todo-status-color: #59b4d1;
   --doing-status-color: #d0935a;
   --done-status-color: #59d090;
-  --black-color: #171717;
+  --black-color: #0e021b;
   --white-color: #f9f7fa;
   --light-blue-color: #e1e8ed;
   --light-shadow-color: rgba(0, 0, 0, 0.1);
@@ -64,6 +64,7 @@ h6 {
   padding: 16px 12px;
   border-radius: 4px;
   flex-basis: 280px;
+  max-width: 280px;
   flex-shrink: 0;
   align-self: baseline;
   box-shadow: 3px 3px 5px var(--shadow-color);
@@ -86,31 +87,47 @@ h6 {
 }
 
 .kanban__task {
-  background-color: var(--white-color);
   border-radius: 4px;
+  position: relative;
   padding: 16px;
+  cursor: grab;
+  background-color: var(--light-blue-color);
+  transition: background-color 0.4s;
+}
+
+.kanban__task:hover {
+  background-color: var(--light-shadow-color);
+}
+
+.kanban__task:hover > .kanban__delete {
+  display: block;
 }
 
 .kanban__dropzone {
-  height: 12px;
+  height: 16px;
   transition: background 0.15s, height 0.15s;
 }
 
 .kanban__dropzone--active {
   height: 24px;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--shadow-color);
 }
 
 .kanban__content {
   flex-grow: 1;
   cursor: pointer;
-  outline: 0;
+  outline-color: var(--primary-color);
+  cursor: text;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: var(--light-blue-color);
 }
 
 .kanban__delete {
-  display: flex;
-  justify-content: end;
-  margin-top: 8px;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: none;
 }
 
 .button {
@@ -130,7 +147,8 @@ h6 {
 }
 
 .button--delete:hover {
-  background-color: var(--shadow-color);
+  /* background-color: ; */
+  filter: brightness(1.1);
 }
 
 .button--add {

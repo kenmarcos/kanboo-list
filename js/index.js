@@ -1,3 +1,4 @@
-import KanbanAPI from "./api/KanbanAPI.js";
+import Kanban from "./view/Kanban.js";
 
-KanbanAPI.deleteTask(1562480902);
+const kanban = document.querySelector(".kanban");
+new Kanban(kanban);

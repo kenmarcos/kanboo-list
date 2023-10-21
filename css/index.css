@@ -72,14 +72,17 @@ h6 {
 
 .kanban__column--todo {
   background-color: var(--todo-status-color);
+  animation: fadeInUp 0.4s;
 }
 
 .kanban__column--doing {
   background-color: var(--doing-status-color);
+  animation: fadeInUp 0.6s;
 }
 
 .kanban__column--done {
   background-color: var(--done-status-color);
+  animation: fadeInUp 0.8s;
 }
 
 .kanban__title {
@@ -245,6 +248,17 @@ h6 {
   to {
     opacity: 0;
     transform: translateY(-80%);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

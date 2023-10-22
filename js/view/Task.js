@@ -6,28 +6,43 @@ export default class Task {
     const bottomDropZone = DropZone.createDropZone();
 
     this.elements = {};
-    this.elements.root = Task.createRoot();
-    this.elements.taskMenu = this.elements.root.querySelector(".task__menu");
+    this.elements.taskRoot = Task.createRoot();
+    this.elements.taskItem = this.elements.taskRoot.children[0];
+    this.elements.taskDeleteModal = this.elements.taskRoot.children[1];
+    this.elements.taskMenu =
+      this.elements.taskItem.querySelector(".task__menu");
     this.elements.content =
-      this.elements.root.querySelector(".kanban__content");
+      this.elements.taskItem.querySelector(".kanban__content");
     this.elements.actions =
-      this.elements.root.querySelector(".kanban__actions");
+      this.elements.taskItem.querySelector(".kanban__actions");
     this.elements.taskActionsBtn =
-      this.elements.root.querySelector(".button--actions");
-    this.elements.taskDeleteBtn = this.elements.root.querySelector(
+      this.elements.taskItem.querySelector(".button--actions");
+    this.elements.taskDeleteBtn = this.elements.taskItem.querySelector(
       ".button__task-delete"
     );
     this.elements.taskMoveBtn =
-      this.elements.root.querySelector(".button__task-move");
+      this.elements.taskItem.querySelector(".button__task-move");
 
-    this.elements.root.dataset.id = id;
+    this.elements.modalConfirmBtn =
+      this.elements.taskDeleteModal.querySelector(".button--confirm");
+    this.elements.modalCancelBtn =
+      this.elements.taskDeleteModal.querySelector(".button--cancel");
+
+    this.elements.taskItem.dataset.id = id;
     this.elements.content.textContent = content;
 
     this.content = content;
-    this.elements.root.appendChild(bottomDropZone);
+    this.elements.taskItem.appendChild(bottomDropZone);
 
     const onBlur = () => {
       const newContent = this.elements.content.textContent.trim();
+
+      if (newContent === "") {
+        KanbanAPI.deleteTask(id);
+        this.elements.taskItem.parentElement.removeChild(
+          this.elements.taskItem
+        );
+      }
 
       if (newContent === this.content) {
         return;
@@ -58,19 +73,28 @@ export default class Task {
     });
 
     this.elements.taskDeleteBtn.addEventListener("click", () => {
-      const check = confirm("Tem certeza que deseja deletar a tarefa?");
-      if (check) {
+      this.closeTaskMenu();
+
+      this.elements.taskDeleteModal.showModal();
+
+      this.elements.modalConfirmBtn.addEventListener("click", () => {
         KanbanAPI.deleteTask(id);
-        this.elements.content.removeEventListener("blur", onBlur);
-        this.elements.root.parentElement.removeChild(this.elements.root);
-      }
+        this.elements.taskItem.parentElement.removeChild(
+          this.elements.taskItem
+        );
+        this.elements.taskDeleteModal.close();
+      });
+
+      this.elements.modalCancelBtn.addEventListener("click", () => {
+        this.elements.taskDeleteModal.close();
+      });
     });
 
-    this.elements.root.addEventListener("dragstart", (event) => {
+    this.elements.taskItem.addEventListener("dragstart", (event) => {
       event.dataTransfer.setData("text/plain", id);
     });
 
-    this.elements.root.addEventListener("drop", (event) => {
+    this.elements.taskItem.addEventListener("drop", (event) => {
       event.preventDefault();
     });
   }
@@ -100,7 +124,17 @@ export default class Task {
            </div>
         </div>
       </li>
-    `).children[0];
+      <dialog class="modal__task-delete">
+        <div class="modal__content">
+          <p>Tem certeza que deseja excluir esta tarefa?</p>
+
+          <div class="modal__actions">
+            <button class="button button--taskDeleteModal button--cancel">Não</button>
+            <button class="button button--taskDeleteModal button--confirm">Sim</button>
+          </div>
+        </div>
+      </dialog>
+    `);
   }
 
   openTaskMenu() {

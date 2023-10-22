@@ -185,6 +185,34 @@ h6 {
   background-color: var(--light-shadow-color);
 }
 
+.button--taskDeleteModal {
+  background-color: red;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.button--confirm {
+  background-color: red;
+  color: var(--white-color);
+  transition: filter 0.4s;
+}
+
+.button--confirm:hover {
+  filter: brightness(0.8);
+}
+
+.button--cancel {
+  background-color: var(--white-color);
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.button--cancel:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
 .task__menu {
   position: absolute;
   right: 0;
@@ -203,6 +231,36 @@ h6 {
 
 .hidden {
   display: none;
+}
+
+.modal__task-delete {
+  border-radius: 4px;
+  border: 1px solid var(--primary-color);
+  background-color: var(--light-blue-color);
+  inset: 150px 20px;
+}
+
+.modal__task-delete::backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  padding: 24px;
+}
+
+.modal__content p {
+  text-align: center;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
 }
 
 .footer {
@@ -259,6 +317,15 @@ h6 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (min-width: 500px) {
+  .modal__task-delete {
+    inset: unset;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 

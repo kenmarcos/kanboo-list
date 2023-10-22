@@ -50,6 +50,8 @@ export default class Column {
     // TODO: criar instância da task
     const task = new Task(data.id, data.content);
 
-    this.elements.tasks.appendChild(task.elements.root);
+    this.elements.tasks.appendChild(task.elements.taskRoot);
+
+    task.elements.content.focus();
   }
 }

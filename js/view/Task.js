@@ -8,7 +8,8 @@ export default class Task {
     this.elements = {};
     this.elements.taskRoot = Task.createRoot();
     this.elements.taskItem = this.elements.taskRoot.children[0];
-    this.elements.taskDeleteModal = this.elements.taskRoot.children[1];
+    this.elements.taskDeleteModal =
+      this.elements.taskItem.querySelector(".modal");
     this.elements.taskMenu =
       this.elements.taskItem.querySelector(".task__menu");
     this.elements.content =
@@ -20,13 +21,19 @@ export default class Task {
     this.elements.taskDeleteBtn = this.elements.taskItem.querySelector(
       ".button__task-delete"
     );
-    this.elements.taskMoveBtn =
-      this.elements.taskItem.querySelector(".button__task-move");
+    this.elements.taskMoveForwardBtn = this.elements.taskItem.querySelector(
+      ".button__task-move-forward"
+    );
+    this.elements.taskMoveBackBtn = this.elements.taskItem.querySelector(
+      ".button__task-move-back"
+    );
 
     this.elements.modalConfirmBtn =
       this.elements.taskDeleteModal.querySelector(".button--confirm");
     this.elements.modalCancelBtn =
       this.elements.taskDeleteModal.querySelector(".button--cancel");
+    this.elements.modalCloseBtn =
+      this.elements.taskDeleteModal.querySelector(".button--close");
 
     this.elements.taskItem.dataset.id = id;
     this.elements.content.textContent = content;
@@ -72,22 +79,37 @@ export default class Task {
       this.closeTaskMenuOnClickOutside();
     });
 
+    this.elements.taskMoveForwardBtn.addEventListener("click", () => {
+      this.moveTask("forward");
+    });
+
+    this.elements.taskMoveBackBtn.addEventListener("click", () => {
+      this.moveTask("back");
+    });
+
     this.elements.taskDeleteBtn.addEventListener("click", () => {
       this.closeTaskMenu();
 
       this.elements.taskDeleteModal.showModal();
 
-      this.elements.modalConfirmBtn.addEventListener("click", () => {
-        KanbanAPI.deleteTask(id);
-        this.elements.taskItem.parentElement.removeChild(
-          this.elements.taskItem
-        );
-        this.elements.taskDeleteModal.close();
-      });
+      if (this.elements.taskDeleteModal.open) {
+        this.elements.modalCloseBtn.addEventListener("click", () => {
+          this.elements.taskDeleteModal.close();
+        });
 
-      this.elements.modalCancelBtn.addEventListener("click", () => {
-        this.elements.taskDeleteModal.close();
-      });
+        this.elements.modalConfirmBtn.addEventListener("click", () => {
+          KanbanAPI.deleteTask(id);
+          this.elements.taskItem.parentElement.removeChild(
+            this.elements.taskItem
+          );
+
+          this.elements.taskDeleteModal.close();
+        });
+
+        this.elements.modalCancelBtn.addEventListener("click", () => {
+          this.elements.taskDeleteModal.close();
+        });
+      }
     });
 
     this.elements.taskItem.addEventListener("dragstart", (event) => {
@@ -113,8 +135,12 @@ export default class Task {
            </button>
            </div>
            <div class="task__menu hidden" draggable="true">
-             <button class="button button--menu button__task-move">
+             <button class="button button--menu button__task-move-forward">
                <ion-icon name="arrow-forward-outline"></ion-icon>
+               <span>Mover</span>
+             </button>
+             <button class="button button--menu button__task-move-back">
+               <ion-icon name="arrow-back-outline"></ion-icon>
                <span>Mover</span>
              </button>
              <button class="button button--menu button__task-delete">
@@ -123,17 +149,22 @@ export default class Task {
              </button>
            </div>
         </div>
-      </li>
-      <dialog class="modal__task-delete">
-        <div class="modal__content">
-          <p>Tem certeza que deseja excluir esta tarefa?</p>
 
-          <div class="modal__actions">
-            <button class="button button--taskDeleteModal button--cancel">Não</button>
-            <button class="button button--taskDeleteModal button--confirm">Sim</button>
+        <dialog class="modal">
+          <div class="modal__content content--task-delete">
+            <div class="modal__close">
+              <button class="button button--close">X</button>
+            </div>
+  
+            <p>Tem certeza que deseja excluir esta tarefa?</p>
+  
+            <div class="actions--task-delete">
+              <button class="button button--taskDeleteModal button--cancel">Não</button>
+              <button class="button button--taskDeleteModal button--confirm">Sim</button>
+            </div>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+      </li>
     `);
   }
 
@@ -161,6 +192,35 @@ export default class Task {
       ) {
         this.closeTaskMenu();
       }
+    });
+  }
+
+  moveTask(whereToMove) {
+    this.closeTaskMenu();
+
+    const currentColumn = this.elements.taskItem.closest(".kanban__column");
+    const currentColumnId = Number(currentColumn.dataset.id);
+    const FIRST_TASK_POSITION = 0;
+
+    let newColumnId;
+
+    if (whereToMove === "forward") {
+      newColumnId = currentColumnId + 1;
+    }
+
+    if (whereToMove === "back") {
+      newColumnId = currentColumnId - 1;
+    }
+
+    const newTaskList = document.querySelector(
+      `[data-id="${newColumnId}"] .kanban__list`
+    );
+
+    newTaskList.firstChild.after(this.elements.taskItem);
+
+    KanbanAPI.updateTask(this.elements.taskItem.dataset.id, {
+      columnId: newColumnId,
+      position: FIRST_TASK_POSITION,
     });
   }
 }

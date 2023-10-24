@@ -34,7 +34,9 @@ export default class KanbanAPI {
 
     const [task, currentColumn] = (() => {
       for (const column of data) {
-        const task = column.tasks.find((task) => task.id === taskId);
+        const task = column.tasks.find((task) => {
+          return task.id === Number(taskId);
+        });
 
         if (task) {
           return [task, column];

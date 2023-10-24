@@ -213,6 +213,23 @@ h6 {
   color: var(--white-color);
 }
 
+.button--close {
+  width: 25px;
+  height: 25px;
+  font-weight: 600;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  transition: filter 0.4s;
+}
+
+.button--close:hover {
+  filter: brightness(0.8);
+}
+
 .task__menu {
   position: absolute;
   right: 0;
@@ -229,18 +246,32 @@ h6 {
   animation: slideOut 0.4s;
 }
 
+[data-id="1"] .button__task-move-back {
+  display: none;
+}
+
+[data-id="3"] .button__task-move-forward {
+  display: none;
+}
+
 .hidden {
   display: none;
 }
 
-.modal__task-delete {
+.modal {
   border-radius: 4px;
   border: 1px solid var(--primary-color);
   background-color: var(--light-blue-color);
   inset: 150px 20px;
 }
 
-.modal__task-delete::backdrop {
+.modal__close {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.modal::backdrop {
   backdrop-filter: blur(4px);
 }
 
@@ -249,15 +280,16 @@ h6 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 36px;
+  gap: 16px;
   padding: 24px;
 }
 
-.modal__content p {
+.content--task-delete p {
   text-align: center;
 }
 
-.modal__actions {
+.actions--task-delete {
+  margin-top: 16px;
   display: flex;
   justify-content: center;
   gap: 24px;
@@ -321,7 +353,7 @@ h6 {
 }
 
 @media (min-width: 500px) {
-  .modal__task-delete {
+  .modal {
     inset: unset;
     top: 50%;
     left: 50%;

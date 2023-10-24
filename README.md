@@ -48,7 +48,8 @@ O Kanboo List oferece uma interface de usuário intuitiva para criar, atualizar 
 
 <p align="center">
   <img src=".github/kanboo-list.png" width=500>
-
+</p>
+<p align="center">
   <img src=".github/kanboo-list_mobile_01.png" width=200>
 
   <img src=".github/kanboo-list_mobile_02.png" width=200>

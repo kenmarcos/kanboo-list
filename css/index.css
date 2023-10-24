@@ -31,6 +31,7 @@ h6 {
   font-family: "Merriweather Sans", sans-serif;
 }
 
+/* HEADER */
 .header {
   padding: 12px 8px;
   background-color: var(--white-color);
@@ -46,6 +47,7 @@ h6 {
   color: var(--primary-color);
 }
 
+/* KANBAN */
 .kanban {
   width: 100%;
   max-width: 1280px;
@@ -133,6 +135,7 @@ h6 {
   z-index: 2;
 }
 
+/* BUTTONS */
 .button {
   font-size: 16px;
   background-color: transparent;
@@ -230,6 +233,7 @@ h6 {
   filter: brightness(0.8);
 }
 
+/* MENU DA TAREFA */
 .task__menu {
   position: absolute;
   right: 0;
@@ -258,6 +262,7 @@ h6 {
   display: none;
 }
 
+/* MODAL DE CONFIRMAÇÃO PARA DELETAR TAREFA */
 .modal {
   border-radius: 4px;
   border: 1px solid var(--primary-color);
@@ -303,6 +308,7 @@ h6 {
   gap: 24px;
 }
 
+/* FOOTER */
 .footer {
   padding: 12px 8px;
   background-color: var(--black-color);
@@ -378,6 +384,7 @@ h6 {
   }
 }
 
+/* MEDIA QUERIES */
 @media (min-width: 500px) {
   .modal {
     inset: unset;
@@ -394,11 +401,6 @@ h6 {
     justify-content: center;
     gap: 32px;
   }
-
-  /* .task__menu {
-    top: 0;
-    right: -135px;
-  } */
 
   .footer__text {
     text-align: end;

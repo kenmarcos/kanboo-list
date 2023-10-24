@@ -90,24 +90,26 @@ export default class Task {
     this.elements.taskDeleteBtn.addEventListener("click", () => {
       this.closeTaskMenu();
 
-      this.elements.taskDeleteModal.showModal();
+      this.openTaskDeleteModal();
 
       if (this.elements.taskDeleteModal.open) {
         this.elements.modalCloseBtn.addEventListener("click", () => {
-          this.elements.taskDeleteModal.close();
+          this.closeTaskDeleteModal();
         });
 
         this.elements.modalConfirmBtn.addEventListener("click", () => {
           KanbanAPI.deleteTask(id);
-          this.elements.taskItem.parentElement.removeChild(
-            this.elements.taskItem
-          );
+          this.closeTaskDeleteModal();
 
-          this.elements.taskDeleteModal.close();
+          setTimeout(() => {
+            this.elements.taskItem.parentElement.removeChild(
+              this.elements.taskItem
+            );
+          }, 400);
         });
 
         this.elements.modalCancelBtn.addEventListener("click", () => {
-          this.elements.taskDeleteModal.close();
+          this.closeTaskDeleteModal();
         });
       }
     });
@@ -222,5 +224,21 @@ export default class Task {
       columnId: newColumnId,
       position: FIRST_TASK_POSITION,
     });
+  }
+
+  openTaskDeleteModal() {
+    this.elements.taskDeleteModal.classList.remove("modal--out");
+
+    this.elements.taskDeleteModal.showModal();
+    this.elements.taskDeleteModal.classList.add("modal--in");
+  }
+
+  closeTaskDeleteModal() {
+    this.elements.taskDeleteModal.classList.remove("modal--in");
+
+    setTimeout(() => {
+      this.elements.taskDeleteModal.close();
+    }, 350);
+    this.elements.taskDeleteModal.classList.add("modal--out");
   }
 }

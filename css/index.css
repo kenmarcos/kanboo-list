@@ -265,6 +265,14 @@ h6 {
   inset: 150px 20px;
 }
 
+.modal--in {
+  animation: fadeIn 0.4s;
+}
+
+.modal--out {
+  animation: fadeOut 0.4s;
+}
+
 .modal__close {
   width: 100%;
   display: flex;
@@ -349,6 +357,24 @@ h6 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
